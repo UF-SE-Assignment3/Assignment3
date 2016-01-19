@@ -2,21 +2,28 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-/* Create your schema */
 var listingSchema = new Schema({
-  /* your code here */
-  code: String,
-  name: String,
+  //the remainder of this method is our code
+  code: {type: String, required: true, unique: true},
+  name: {type: String, required: true},
   coordinates: {
     latitude: Number,
     longitude: Number
   },
-  address: String
+  address: String,
+  created_at: Date,
+  updated_at: Date
 });
 
 /* create a 'pre' function that adds the updated_at (and created_at if not already there) property */
 listingSchema.pre('save', function(next) {
-  /* your code here */
+  //the remainder of this method is our code
+  if (!this.code)
+    throw new Error("Code field is undefined");
+
+  if (!this.name)
+    throw new Error("Name field is undefined");
+
   var currentDate = new Date();
   this.updated_at = currentDate;
   if (!this.created_at) {

@@ -11,7 +11,7 @@ mongoose.connect(config.db.uri);
 var callBackCount = 0;
 
 var disconnectDB = function() {
-  if (callBackCount == 4) mongoose.disconnect();
+  if (++callBackCount == 4) mongoose.disconnect();
 };
 
 /* Fill out these functions using Mongoose queries*/
@@ -24,7 +24,6 @@ var findLibraryWest = function() {
    Listing.find({name: 'Library West' }).exec(function(err, listing) {
      if (err) throw err;
      console.log(listing);
-     callBackCount++;
      disconnectDB();
    });
 };

@@ -21,9 +21,10 @@ var findLibraryWest = function() {
     Find the document that contains data corresponding to Library West,
     then log it to the console.
    */
-   Listing.find({name: 'Library West' }).exec(function(err, listing) {
+   Listing.find({name: 'Library West' }, function(err, listing) {
      if (err) throw err;
-     console.log(listing);
+     console.log("Found library West\n");
+     console.log(listing + '\n\n');
      disconnectDB();
    });
 };
@@ -35,7 +36,8 @@ var removeCable = function() {
    */
    Listing.findOneAndRemove({code: 'CABL'}, function(err, listing){
       if(err) throw err;
-      console.log('Removed CABL\n\n');
+      console.log('Removed CABL\n');
+      console.log(listing + '\n\n');
       disconnectDB();
     });
 };
@@ -50,8 +52,8 @@ var updatePhelpsMemorial = function() {
      {address: 'Phelps Lab, Gainesville, FL 32611', latitude: '29.644863', longitude: '-82.348820'},
      function(err,listing){
        if(err) throw err;
-       console.log("Updated Phelps Lab address\n\n");
-       console.log(listing);
+       console.log("Updated Phelps Lab address\n");
+       console.log(listing + '\n\n');
        disconnectDB();
      });
 };
@@ -62,8 +64,8 @@ var retrieveAllListings = function() {
    Listing.find({}, function(err, listings){
      if(err) throw err;
 
-     console.log('All Listings:\n\n');
-     console.log(listings);
+     console.log('All Listings:\n');
+     console.log(listings + '\n\nAll Listings Shown\n\n');
      disconnectDB();
    });
 };

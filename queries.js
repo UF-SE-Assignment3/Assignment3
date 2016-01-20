@@ -8,6 +8,12 @@ config = require('./config.js');
 
 mongoose.connect(config.db.uri);
 
+var callBackCount = 0;
+
+var disconnectDB = function() {
+  if (callBackCount == 4) mongoose.disconnect();
+};
+
 /* Fill out these functions using Mongoose queries*/
 
 var findLibraryWest = function() {
@@ -15,6 +21,12 @@ var findLibraryWest = function() {
     Find the document that contains data corresponding to Library West,
     then log it to the console.
    */
+   Listing.find({name: 'Library West' }).exec(function(err, listing) {
+     if (err) throw err;
+     console.log(listing);
+     callBackCount++;
+     disconnectDB();
+   });
 };
 var removeCable = function() {
   /*
@@ -22,22 +34,23 @@ var removeCable = function() {
     on cable TV. Since we live in the 21st century and most courses are now web based, go ahead
     and remove this listing from your database and log the document to the console.
    */
+   disconnectDB();
 };
 var updatePhelpsMemorial = function() {
   /*
     Phelps Memorial Hospital Center's address is incorrect. Find the listing, update it, and then
     log the updated document to the console.
    */
+   disconnectDB();
 };
 var retrieveAllListings = function() {
   /*
     Retrieve all listings in the database, and log them to the console.
    */
+   disconnectDB();
 };
 
 findLibraryWest();
 removeCable();
 updatePhelpsMemorial();
 retrieveAllListings();
-
-mongoose.disconnect();
